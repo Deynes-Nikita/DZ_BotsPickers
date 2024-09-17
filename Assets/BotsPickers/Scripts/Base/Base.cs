@@ -4,7 +4,7 @@ using UnityEngine;
 namespace BotsPickers
 {
     [RequireComponent(typeof(Scanner))]
-    [RequireComponent(typeof(Goods—ounter))]
+    [RequireComponent(typeof(Counter))]
     [RequireComponent(typeof(Creator))]
     public class Base : MonoBehaviour, ITargeted
     {
@@ -12,15 +12,17 @@ namespace BotsPickers
         [SerializeField] List<Truck> _trucks = new List<Truck>();
 
         private Scanner _scanner;
-        private Goods—ounter _counter;
+        private Counter _counter;
         private Creator _creator;
         private List<Good> _currentGoods = new List<Good>();
 
         private void Start()
         {
             _scanner = GetComponent<Scanner>();
-            _counter = GetComponent<Goods—ounter>();
+            _counter = GetComponent<Counter>();
             _creator = GetComponent<Creator>();
+
+            _counter.GetTruckCount(_trucks.Count);
         }
 
         private void FixedUpdate()
@@ -101,6 +103,7 @@ namespace BotsPickers
                 return false;
 
             _trucks.Add(_creator.Truck(this));
+            _counter.GetTruckCount(_trucks.Count);
             return true;
         }
     }

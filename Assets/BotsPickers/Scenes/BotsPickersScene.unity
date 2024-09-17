@@ -770,6 +770,10 @@ PrefabInstance:
       propertyPath: _trucks.Array.data[2]
       value: 
       objectReference: {fileID: 674032933}
+    - target: {fileID: 3530471180163490893, guid: c63504ded200d214da9d20e92109c910, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 963194227}
     - target: {fileID: 5644071979267213775, guid: c63504ded200d214da9d20e92109c910, type: 3}
       propertyPath: _radius
       value: 100
