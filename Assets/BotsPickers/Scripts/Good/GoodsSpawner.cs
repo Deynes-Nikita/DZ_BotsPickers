@@ -33,7 +33,6 @@ namespace BotsPickers
         {
             Good good = Instantiate(_goodPrefab);
             good.gameObject.SetActive(false);
-
             good.Collected += ReturnGoodToPool;
 
             return good;
@@ -42,9 +41,6 @@ namespace BotsPickers
         private void ActionOnGet(Good good)
         {
             good.transform.position = SelectSpawnPoint();
-            good.transform.rotation = Quaternion.identity;
-            good.ResetParameters();
-
             good.gameObject.SetActive(true);
         }
 
@@ -56,7 +52,6 @@ namespace BotsPickers
         private void DestroyGood(Good good)
         {
             good.Collected -= ReturnGoodToPool;
-
             Destroy(good);
         }
 

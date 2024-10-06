@@ -1,67 +1,49 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace BotsPickers
 {
     public class TruckMovement : MonoBehaviour
     {
-        [SerializeField] private float _speed = 1;
-
-        private Coroutine _lookCoroutine = null;
         private Coroutine _moveCoroutine = null;
+        private NavMeshAgent _agent;
 
         public event Action Arrived;
 
+        private void Awake()
+        {
+            _agent = GetComponent<NavMeshAgent>();
+        }
+
         public void OnMove(Vector3 targetPosition, float interactionDistance, ITargeted target)
         {
-            if (_lookCoroutine != null || _moveCoroutine != null)
+            if (_moveCoroutine != null)
                 StopMoving();
 
-            _lookCoroutine = StartCoroutine(Look(targetPosition));
             _moveCoroutine = StartCoroutine(Move(targetPosition, interactionDistance, target));
         }
 
         public void StopMoving()
         {
-            if (_lookCoroutine != null)
-                StopCoroutine(_lookCoroutine);
-
             if (_moveCoroutine != null)
                 StopCoroutine(_moveCoroutine);
 
-            _lookCoroutine = null;
             _moveCoroutine = null;
-        }
-
-        private IEnumerator Look(Vector3 targetPosition)
-        {
-            Vector3 direction = targetPosition - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(direction);
-
-            while (transform.rotation != rotation)
-            {
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _speed * Time.deltaTime);
-
-                yield return null;
-            }
-
-            _lookCoroutine = null;
         }
 
         private IEnumerator Move(Vector3 targetPosition, float interactionDistance, ITargeted target)
         {
             bool isMoving = true;
             float distance;
-            Vector3 moveDirection;
             RaycastHit hit;
+
+            _agent.SetDestination(targetPosition);
 
             while (isMoving)
             {
                 distance = Vector3.Distance(transform.position, targetPosition);
-
-                moveDirection = (targetPosition - transform.position).normalized;
-                transform.position += moveDirection * _speed * Time.deltaTime;
 
                 if (distance < interactionDistance)
                     isMoving = false;

@@ -7,7 +7,7 @@ namespace BotsPickers
     public class Truck : MonoBehaviour
     {
         [SerializeField] private float _interactionDistance = 3.5f;
-        [SerializeField] private Base _base;
+        [SerializeField] private SuperMarket _superMarket;
 
         private TruckMovement _movement;
         private GoodsHandler _handler;
@@ -35,9 +35,9 @@ namespace BotsPickers
             _movement.Arrived += OnHandlingGood;
         }
 
-        public void SetParameters(Base targetBase)
+        public void SetTargetSuperMarket(SuperMarket targetSuperMarket)
         {
-            _base = targetBase;
+            _superMarket = targetSuperMarket;
         }
 
         public void GetTask(Good good)
@@ -62,9 +62,9 @@ namespace BotsPickers
             _movement.StopMoving();
         }
 
-        private void ReturnToBase()
+        private void ReturnToSuperMarket()
         {
-            StartMove(_base.transform.position, _base);
+            StartMove(_superMarket.ReceivingPoint, _superMarket);
         }
 
         private void ResetTask()
@@ -77,7 +77,7 @@ namespace BotsPickers
         {
             if (_isGoodAvailable)
             {
-                _handler.Drop(_base);
+                _handler.Drop(_superMarket);
                 _isGoodAvailable = false;
                 _isBusy = false;
             }
@@ -85,7 +85,7 @@ namespace BotsPickers
             {
                 if (_handler.TryPickup(_good, _interactionDistance))
                 {
-                    ReturnToBase();
+                    ReturnToSuperMarket();
                     _isGoodAvailable = true;
                 }
                 else
