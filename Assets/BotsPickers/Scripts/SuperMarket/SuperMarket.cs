@@ -9,7 +9,7 @@ namespace BotsPickers
     public class SuperMarket : MonoBehaviour, ITargeted
     {
         [SerializeField] private int _truckPrice = 3;
-        [SerializeField] List<Truck> _trucks = new List<Truck>();
+        [SerializeField] private List<Truck> _trucks = new List<Truck>();
         [SerializeField] private Transform _receivingPoint;
 
         private Scanner _scanner;
@@ -41,7 +41,7 @@ namespace BotsPickers
             _counter.GetTruckCount(_trucks.Count);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             SendForGoods();
         }
