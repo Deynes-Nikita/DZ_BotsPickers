@@ -28,13 +28,13 @@ namespace BotsPickers
             return true;
         }
 
-        public void Drop(Base targetBase)
+        public void Drop(SuperMarket targetSuperMarket)
         {
             if (_good == null)
                 return;
 
             _good.transform.parent = null;
-            targetBase.AcceptGood(_good);
+            targetSuperMarket.AcceptGood(_good);
         }
     }
 }

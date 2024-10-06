@@ -7,11 +7,16 @@ namespace BotsPickers
     {
         [SerializeField] private int _reward = 1;
 
-        private bool _isBusy = false;
+        private bool _isBusy;
 
         public bool IsBusy => _isBusy;
 
         public event Action<Good> Collected;
+
+        private void OnEnable()
+        {
+            ResetParameters();
+        }
 
         public void OnBook()
         {
@@ -24,8 +29,9 @@ namespace BotsPickers
             return _reward;
         }
 
-        public void ResetParameters()
+        private void ResetParameters()
         {
+            transform.rotation = Quaternion.identity;
             _isBusy = false;
         }
     }

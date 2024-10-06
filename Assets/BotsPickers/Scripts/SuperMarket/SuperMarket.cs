@@ -5,32 +5,45 @@ namespace BotsPickers
 {
     [RequireComponent(typeof(Scanner))]
     [RequireComponent(typeof(Counter))]
-    [RequireComponent(typeof(Creator))]
-    public class Base : MonoBehaviour, ITargeted
+    [RequireComponent(typeof(TruckSpawner))]
+    public class SuperMarket : MonoBehaviour, ITargeted
     {
         [SerializeField] private int _truckPrice = 3;
         [SerializeField] List<Truck> _trucks = new List<Truck>();
+        [SerializeField] private Transform _receivingPoint;
 
         private Scanner _scanner;
         private Counter _counter;
-        private Creator _creator;
+        private TruckSpawner _truckSpawner;
         private List<Good> _currentGoods = new List<Good>();
 
-        private void Start()
+        public Vector3 ReceivingPoint => _receivingPoint.position;
+
+        private void Awake()
         {
             _scanner = GetComponent<Scanner>();
             _counter = GetComponent<Counter>();
-            _creator = GetComponent<Creator>();
+            _truckSpawner = GetComponent<TruckSpawner>();
+        }
 
+        private void OnEnable()
+        {
+            _counter.ScoreRecalculated += OnCreate;
+        }
+
+        private void OnDisable()
+        {
+            _counter.ScoreRecalculated += OnCreate;
+        }
+
+        private void Start()
+        {
             _counter.GetTruckCount(_trucks.Count);
         }
 
         private void FixedUpdate()
         {
             SendForGoods();
-
-            if (TryCreate(_counter.Score))
-                _counter.DeductScore(_truckPrice);
         }
 
         public void AcceptGood(Good good)
@@ -97,14 +110,22 @@ namespace BotsPickers
             truck.GetTask(good);
         }
 
-        private bool TryCreate(int score)
+        private void OnCreate(int score)
         {
-            if (score < _truckPrice)
-                return false;
+            if (score >= _truckPrice)
+                CreateTruck();
+        }
 
-            _trucks.Add(_creator.Truck(this));
-            _counter.GetTruckCount(_trucks.Count);
-            return true;
+        private void CreateTruck()
+        {
+            if (_counter.TryBuy(_truckPrice))
+            {
+                Truck truck = _truckSpawner.Create();
+                truck.SetTargetSuperMarket(this);
+                _trucks.Add(truck);
+
+                _counter.GetTruckCount(_trucks.Count);
+            }
         }
     }
 }
