@@ -7,27 +7,31 @@ namespace BotsPickers
     {
         [SerializeField] private float _radius = 1f;
 
-        public void Scan(List<Good> goods)
+        public List<Product> Scan()
         {
-            foreach (Good good in GetGoods())
+            List<Product> products = new List<Product>();
+
+            foreach (Product product in GetGoods())
             {
-                goods.Add(good);
+                products.Add(product);
             }
+
+            return products;
         }
 
-        private List<Good> GetGoods()
+        private List<Product> GetGoods()
         {
-            List<Good> goods = new List<Good>();
+            List<Product> products = new List<Product>();
 
             Collider[] hits = Physics.OverlapSphere(transform.position, _radius);
 
             foreach (Collider hit in hits)
             {
-                if (hit.TryGetComponent<Good>(out Good good) && good.IsBusy == false)
-                    goods.Add(good);
+                if (hit.TryGetComponent<Product>(out Product product) && product.transform.parent == false)
+                    products.Add(product);
             }
 
-            return goods;
+            return products;
         }
     }
 }

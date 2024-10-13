@@ -5,17 +5,14 @@ namespace BotsPickers
 {
     [RequireComponent(typeof(Scanner))]
     [RequireComponent(typeof(Counter))]
-    [RequireComponent(typeof(TruckSpawner))]
     public class SuperMarket : MonoBehaviour, ITargeted
     {
-        [SerializeField] private int _truckPrice = 3;
         [SerializeField] private List<Truck> _trucks = new List<Truck>();
         [SerializeField] private Transform _receivingPoint;
 
         private Scanner _scanner;
         private Counter _counter;
-        private TruckSpawner _truckSpawner;
-        private List<Good> _currentGoods = new List<Good>();
+        private List<Product> _currentProducts = new List<Product>();
 
         public Vector3 ReceivingPoint => _receivingPoint.position;
 
@@ -23,17 +20,6 @@ namespace BotsPickers
         {
             _scanner = GetComponent<Scanner>();
             _counter = GetComponent<Counter>();
-            _truckSpawner = GetComponent<TruckSpawner>();
-        }
-
-        private void OnEnable()
-        {
-            _counter.ScoreRecalculated += OnCreate;
-        }
-
-        private void OnDisable()
-        {
-            _counter.ScoreRecalculated += OnCreate;
         }
 
         private void Start()
@@ -43,38 +29,38 @@ namespace BotsPickers
 
         private void Update()
         {
-            SendForGoods();
+            SendForProducts();
         }
 
-        public void AcceptGood(Good good)
+        public void AcceptProduct(Product product)
         {
-            _counter.GetReward(good.GiveReward());
-            _currentGoods.Remove(good);
+            _counter.GetReward(product.GiveReward());
+            _currentProducts.Remove(product);
         }
 
-        private bool TrySelectGood(out Good good)
+        private bool TrySelectProduct(out Product product)
         {
-            List<Good> goods = new List<Good>();
+            List<Product> products = new List<Product>();
 
-            _scanner.Scan(goods);
+            products = _scanner.Scan();
 
-            if (goods.Count == 0)
+            if (products.Count == 0)
             {
-                good = null;
+                product = null;
                 return false;
             }
 
-            foreach (Good item in goods)
+            foreach (Product item in products)
             {
-                if (item == null || _currentGoods.Contains(item))
+                if (item == null || _currentProducts.Contains(item))
                     continue;
 
-                good = item;
-                _currentGoods.Add(good);
+                product = item;
+                _currentProducts.Add(product);
                 return true;
             }
 
-            good = null;
+            product = null;
             return false;
         }
 
@@ -102,30 +88,12 @@ namespace BotsPickers
             return false;
         }
 
-        private void SendForGoods()
+        private void SendForProducts()
         {
-            if (TrySelectTruck(out Truck truck) == false || TrySelectGood(out Good good) == false)
+            if (TrySelectTruck(out Truck truck) == false || TrySelectProduct(out Product product) == false)
                 return;
 
-            truck.GetTask(good);
-        }
-
-        private void OnCreate(int score)
-        {
-            if (score >= _truckPrice)
-                CreateTruck();
-        }
-
-        private void CreateTruck()
-        {
-            if (_counter.TryBuy(_truckPrice))
-            {
-                Truck truck = _truckSpawner.Create();
-                truck.SetTargetSuperMarket(this);
-                _trucks.Add(truck);
-
-                _counter.GetTruckCount(_trucks.Count);
-            }
+            truck.GetTask(product);
         }
     }
 }

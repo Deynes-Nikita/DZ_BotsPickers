@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2717753508041167234}
   - component: {fileID: 2246272179314239978}
   m_Layer: 0
-  m_Name: GoodSpawner
+  m_Name: ProductSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c36e16833373c84994986c9cfbeeeab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _goodPrefab: {fileID: 888061829807040180, guid: ce6a4dcc322c584478f0230278314983, type: 3}
+  _productPrefab: {fileID: 5911682001210842515, guid: ce6a4dcc322c584478f0230278314983, type: 3}
   _repeatRate: 1
-  _maxCountGoods: 50
+  _maxCountProducts: 1
   _ground: {fileID: 0}

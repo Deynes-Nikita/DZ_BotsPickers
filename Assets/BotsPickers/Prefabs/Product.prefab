@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: b29963dac796c844d8a27568267fbdd5, type: 3}
       propertyPath: m_Name
-      value: Good
+      value: Product
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: b29963dac796c844d8a27568267fbdd5, type: 3}
       propertyPath: m_Layer
@@ -100,7 +100,7 @@ PrefabInstance:
       addedObject: {fileID: 6265317695109044420}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: b29963dac796c844d8a27568267fbdd5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 888061829807040180}
+      addedObject: {fileID: 5911682001210842515}
   m_SourcePrefab: {fileID: 100100000, guid: b29963dac796c844d8a27568267fbdd5, type: 3}
 --- !u!1 &5537266972591221189 stripped
 GameObject:
@@ -155,7 +155,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
---- !u!114 &888061829807040180
+--- !u!114 &5911682001210842515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5537266972591221189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 555cb47f11c8910419334a3b9977e766, type: 3}
+  m_Script: {fileID: 11500000, guid: 94db424fb37e0204882a7743bc90958e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _reward: 1

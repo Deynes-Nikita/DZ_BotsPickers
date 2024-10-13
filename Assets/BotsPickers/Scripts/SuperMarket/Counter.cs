@@ -8,10 +8,10 @@ namespace BotsPickers
         private int _score = 0;
         private int _truckCount = 0;
 
-        public int Score => _score;
-
         public event Action<int> ScoreRecalculated;
         public event Action<int> TruckRecalculated;
+
+        public int Score => _score;
 
         public void GetReward(int reward)
         {

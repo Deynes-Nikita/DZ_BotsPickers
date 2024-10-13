@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 3000283807739797992}
   - component: {fileID: 6302215213711610127}
   m_Layer: 5
-  m_Name: GoodsView
+  m_Name: ProductsView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _counter: {fileID: 4560427179160494720}
-  _showGoodsCount: {fileID: 1884279832322131180}
+  _showProductsCount: {fileID: 1884279832322131180}
   _showTruckCount: {fileID: 5346784279637999080}
 --- !u!1 &6507872651060816835
 GameObject:
@@ -463,7 +463,7 @@ GameObject:
   - component: {fileID: 9174183539422148808}
   - component: {fileID: 1884279832322131180}
   m_Layer: 5
-  m_Name: LableGoodsCount
+  m_Name: LableProductsCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -597,7 +597,7 @@ GameObject:
   - component: {fileID: 1995970850489954562}
   - component: {fileID: 3951646188919774243}
   m_Layer: 5
-  m_Name: LableGoods
+  m_Name: LableProducts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -650,7 +650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Goods:'
+  m_text: 'Products:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -677,7 +677,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2.2
+  m_fontSize: 1.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -735,7 +735,6 @@ GameObject:
   - component: {fileID: 49909842045427992}
   - component: {fileID: 5644071979267213775}
   - component: {fileID: 4560427179160494720}
-  - component: {fileID: 1760342096984079169}
   - component: {fileID: -5738472468600046319}
   m_Layer: 6
   m_Name: Building_Super Market
@@ -872,7 +871,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aefd8af7cb7fa1c4087c85c1f5e33f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _truckPrice: 3
   _trucks: []
   _receivingPoint: {fileID: 4638282951835520533}
 --- !u!114 &5644071979267213775
@@ -900,20 +898,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e75c6781691873a448b455e068156a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1760342096984079169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7443458865466689410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34936f3f0a44a104d8063757eaebe0e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _truckPrefab: {fileID: 2072385742686866231, guid: ad50cf349e10df5469b0eec62a117b67, type: 3}
-  _spawnPoint: {fileID: 9130852350078681692}
 --- !u!208 &-5738472468600046319
 NavMeshObstacle:
   m_ObjectHideFlags: 0

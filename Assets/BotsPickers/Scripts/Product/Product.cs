@@ -3,24 +3,15 @@ using UnityEngine;
 
 namespace BotsPickers
 {
-    public class Good : MonoBehaviour, ITargeted
+    public class Product : MonoBehaviour, ITargeted
     {
         [SerializeField] private int _reward = 1;
 
-        private bool _isBusy;
-
-        public bool IsBusy => _isBusy;
-
-        public event Action<Good> Collected;
+        public event Action<Product> Collected;
 
         private void OnEnable()
         {
             ResetParameters();
-        }
-
-        public void OnBook()
-        {
-            _isBusy = true;
         }
 
         public int GiveReward()
@@ -32,7 +23,6 @@ namespace BotsPickers
         private void ResetParameters()
         {
             transform.rotation = Quaternion.identity;
-            _isBusy = false;
         }
     }
 }

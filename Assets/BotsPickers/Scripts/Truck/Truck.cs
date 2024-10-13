@@ -3,36 +3,36 @@
 namespace BotsPickers
 {
     [RequireComponent(typeof(TruckMovement))]
-    [RequireComponent(typeof(GoodsHandler))]
+    [RequireComponent(typeof(ProductsHandler))]
     public class Truck : MonoBehaviour
     {
         [SerializeField] private float _interactionDistance = 3.5f;
         [SerializeField] private SuperMarket _superMarket;
 
         private TruckMovement _movement;
-        private GoodsHandler _handler;
+        private ProductsHandler _handler;
 
-        private Good _good;
+        private Product _product;
 
         private bool _isBusy = false;
-        private bool _isGoodAvailable = false;
+        private bool _isProductAvailable = false;
 
         public bool IsBusy => _isBusy;
 
         private void Awake()
         {
             _movement = GetComponent<TruckMovement>();
-            _handler = GetComponent<GoodsHandler>();
+            _handler = GetComponent<ProductsHandler>();
         }
 
         private void OnEnable()
         {
-            _movement.Arrived += OnHandlingGood;
+            _movement.Arrived += OnHandlingProduct;
         }
 
         private void OnDisable()
         {
-            _movement.Arrived += OnHandlingGood;
+            _movement.Arrived += OnHandlingProduct;
         }
 
         public void SetTargetSuperMarket(SuperMarket targetSuperMarket)
@@ -40,16 +40,16 @@ namespace BotsPickers
             _superMarket = targetSuperMarket;
         }
 
-        public void GetTask(Good good)
+        public void GetTask(Product product)
         {
-            if (good == null)
+            if (product == null)
                 return;
 
-            _good = good;
+            _product = product;
 
             _isBusy = true;
 
-            StartMove(_good.transform.position, _good);
+            StartMove(_product.transform.position, _product);
         }
 
         private void StartMove(Vector3 targetPosition, ITargeted targeted)
@@ -73,20 +73,20 @@ namespace BotsPickers
             _isBusy = false;
         }
 
-        private void OnHandlingGood()
+        private void OnHandlingProduct()
         {
-            if (_isGoodAvailable)
+            if (_isProductAvailable)
             {
                 _handler.Drop(_superMarket);
-                _isGoodAvailable = false;
+                _isProductAvailable = false;
                 _isBusy = false;
             }
             else
             {
-                if (_handler.TryPickup(_good, _interactionDistance))
+                if (_handler.TryPickup(_product))
                 {
                     ReturnToSuperMarket();
-                    _isGoodAvailable = true;
+                    _isProductAvailable = true;
                 }
                 else
                 {
